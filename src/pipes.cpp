@@ -53,7 +53,7 @@ Pipes::~Pipes() {
 
 void Pipes::RegenerateHeight() {
   srand(time(NULL));
-  float RanHeight;
+  float RanHeight = 0.0f;
   while (RanHeight < 50) {
     RanHeight = rand() % static_cast<uint32_t>(HEIGHT - 50 - GapBetweenPipes);
   }
