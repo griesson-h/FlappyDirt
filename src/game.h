@@ -1,7 +1,9 @@
 #pragma once
 #include <cstdint>
+#include "background.h"
 #include "flappy.h"
 #include "ground.h"
+#include <raylib.h>
 #include <vector>
 
 const uint32_t WIDTH = 600;
@@ -19,4 +21,5 @@ class FlappyDirt {
 
     Flappy* flappy = nullptr;
     std::vector<Ground*> ground;
+    Background* background;
 };

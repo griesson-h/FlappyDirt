@@ -25,6 +25,7 @@ add_executable(${PROJECT_NAME}
     src/flappy.cpp
     src/object.cpp
     src/ground.cpp
+    src/background.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)

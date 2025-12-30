@@ -12,3 +12,7 @@ Makefile
 
 # clang is a piece of crap but nvim extension i use uses it :(
 .clangd
+
+# krita
+res/flappy.png~
+res/ground.png~

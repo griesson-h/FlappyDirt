@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include <stdfloat>
 #include <type_traits>
+#include <cstdint>
 
 class GameObject {
   public:
@@ -9,7 +10,7 @@ class GameObject {
     virtual void Update();
     virtual ~GameObject();
     Vector2 pos;
-    Vector2 rot;
+    float rot;
     float velocity;
     float acceleration;
     Rectangle CollisionShape;
