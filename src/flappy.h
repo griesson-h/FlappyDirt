@@ -9,7 +9,7 @@ class Flappy : public GameObject {
     void Update();
     void GetInput();
     void Jump();
-    void GroundTouched();
+    void GameOver();
     ~Flappy();
     Flappy();
   private:

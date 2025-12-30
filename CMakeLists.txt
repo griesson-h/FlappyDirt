@@ -11,7 +11,6 @@ project(FlappyDirt)
 
 include(FetchContent)
 
-# --- GLFW ---
 FetchContent_Declare(
     raylib
     GIT_REPOSITORY https://github.com/raysan5/raylib.git
@@ -26,6 +25,7 @@ add_executable(${PROJECT_NAME}
     src/object.cpp
     src/ground.cpp
     src/background.cpp
+    src/pipes.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)

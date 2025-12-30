@@ -3,13 +3,15 @@
 #include "background.h"
 #include "flappy.h"
 #include "ground.h"
+#include "pipes.h"
 #include <raylib.h>
 #include <vector>
 
-const uint32_t WIDTH = 600;
-const uint32_t HEIGHT = 800;
+const float WIDTH = 600;
+const float HEIGHT = 800;
 
 extern bool WindowCloseRequest;
+extern bool HideHitboxes;
 
 class FlappyDirt {
   public:
@@ -22,4 +24,5 @@ class FlappyDirt {
     Flappy* flappy = nullptr;
     std::vector<Ground*> ground;
     Background* background;
+    Pipes* pipes;
 };

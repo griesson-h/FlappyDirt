@@ -3,6 +3,7 @@
 #include <raylib.h>
 
 void Ground::drawself() {
+  if (!HideHitboxes) DrawRectangleRec(CollisionShape, RED);
   DrawTexture(texture, pos.x, pos.y, WHITE);
 }
 

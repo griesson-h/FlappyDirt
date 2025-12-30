@@ -2,9 +2,9 @@
 #include "game.h"
 #include <cmath>
 #include <raylib.h>
-#include <iostream>
 
 void Flappy::drawself() {
+  if (!HideHitboxes) DrawRectangleRec(CollisionShape, GREEN);
   DrawTexturePro(texture, SrcRec, DestRec, origin, rot, WHITE);
 }
 
@@ -33,10 +33,10 @@ void Flappy::Update() {
   velocity += GetFrameTime()*acceleration;
   pos.y += GetFrameTime()*velocity;
   CollisionShape = {
-    pos.x,
-    pos.y,
-    80,
-    60
+    pos.x + 5,
+    pos.y + 5,
+    75,
+    55
   };
 
   DestRec = {
@@ -46,13 +46,14 @@ void Flappy::Update() {
     static_cast<float>(texture.height)
   };
 
-    if (rot < 90) {
-      rot += GetFrameTime() * std::log(std::abs(velocity)) * 10;
-    }
+  if (rot < 90) {
+    rot += GetFrameTime() * std::log(std::abs(velocity)) * 10;
+  }
 }
 
 void Flappy::GetInput() {
   if (IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) Jump();
+  if (IsKeyPressed(KEY_C)) HideHitboxes = HideHitboxes ? false : true;
 }
 
 void Flappy::Jump() {
@@ -61,7 +62,7 @@ void Flappy::Jump() {
   acceleration = 800.0f;
 }
 
-void Flappy::GroundTouched() {
+void Flappy::GameOver() {
   WindowCloseRequest = true;
 }
 
