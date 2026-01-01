@@ -1,4 +1,5 @@
 #include "background.h"
+#include "game.h"
 #include <raylib.h>
 
 void Background::drawself() {
@@ -10,7 +11,7 @@ Background::Background() {
   background_img = LoadImage("res/background.png");
   ImageResizeNN(&background_img, 1200, 900);
   for (int i = 0; i < 2; i++) background_txr[i] = LoadTextureFromImage(background_img);
-  velocity = 50;
+  velocity = static_cast<float>(settings["GameVelocity"])/2;
   pos.x = 0;
   pos.y = 0;
   MovedPixels = 0;

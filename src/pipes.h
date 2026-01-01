@@ -8,10 +8,9 @@ class Pipes : public GameObject {
     void drawself();
     void Update();
     std::array<Rectangle, 2> Collisions;
-    Pipes();
+    Pipes(float x);
     ~Pipes();
   private:
-    Vector2 GetRandomPosition(int xBar, int yBar);
     Image pipe_img;
     Texture2D pipe_txr_up;
     Texture2D pipe_txr_down;
@@ -19,8 +18,9 @@ class Pipes : public GameObject {
     struct Pipe {
       Texture2D txr;
       Vector2 pos;
+      Color color;
     };
     std::array<Pipe, 2> DuoPipe;
 
-    void RegenerateHeight();
+    void RegenerateHeight(float x);
 };

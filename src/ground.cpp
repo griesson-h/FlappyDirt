@@ -14,7 +14,7 @@ Ground::Ground(int width, int height) {
   UnloadImage(image);
   pos.x = width;
   pos.y = height;
-  velocity = 100.0f;
+  velocity = settings["GameVelocity"];
   MovedPixels = 0.0f;
   CollisionShape = {
     0,

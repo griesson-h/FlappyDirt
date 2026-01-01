@@ -4,6 +4,7 @@
 #include "flappy.h"
 #include "ground.h"
 #include "pipes.h"
+#include <nlohmann/json.hpp>
 #include <raylib.h>
 #include <vector>
 
@@ -12,6 +13,9 @@ const float HEIGHT = 800;
 
 extern bool WindowCloseRequest;
 extern bool HideHitboxes;
+extern nlohmann::json settings;
+
+extern float GameVelocity;
 
 class FlappyDirt {
   public:
@@ -20,9 +24,10 @@ class FlappyDirt {
     void init();
     void GameLoop();
     void exit();
+    void readsettings();
 
     Flappy* flappy = nullptr;
     std::vector<Ground*> ground;
     Background* background;
-    Pipes* pipes;
+    std::array<Pipes*, 4> pipes;
 };

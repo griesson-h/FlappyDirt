@@ -2,12 +2,13 @@
 #include "game.h"
 #include <iostream>
 #include <raylib.h>
-#include <ctime>
-#include <cstdlib>
+#include <random>
+
+#include <nlohmann/json.hpp>
 
 void Pipes::drawself() {
   for (int i = 0; i < DuoPipe.size(); ++i) {
-    DrawTexture(DuoPipe[i].txr, DuoPipe[i].pos.x, DuoPipe[i].pos.y, GREEN);
+    DrawTexture(DuoPipe[i].txr, DuoPipe[i].pos.x, DuoPipe[i].pos.y, DuoPipe[i].color);
   }
   if (!HideHitboxes) {
     DrawRectangleRec(Collisions[0], RED);
@@ -15,7 +16,7 @@ void Pipes::drawself() {
   }
 }
 
-Pipes::Pipes() {
+Pipes::Pipes(float x) {
   pipe_img = LoadImage("res/pipe.png");
   ImageResizeNN(&pipe_img, 160, 640);
   pipe_txr_down = LoadTextureFromImage(pipe_img);
@@ -23,13 +24,13 @@ Pipes::Pipes() {
   pipe_txr_up = LoadTextureFromImage(pipe_img);
 
   GapBetweenPipes = 160;
-  velocity = 100;
-  RegenerateHeight();
+  velocity = settings["GameVelocity"];
+  RegenerateHeight(x);
 }
 
 void Pipes::Update() {
-  if (DuoPipe[0].pos.x <= -160) {
-    RegenerateHeight();
+  if (DuoPipe[0].pos.x <= -pipe_txr_down.width) {
+    RegenerateHeight(WIDTH + pipe_txr_down.height);
   }
   DuoPipe[0].pos.x = DuoPipe[1].pos.x -= GetFrameTime() * velocity;
 
@@ -51,21 +52,28 @@ Pipes::~Pipes() {
   UnloadImage(pipe_img);
 }
 
-void Pipes::RegenerateHeight() {
-  srand(time(NULL));
+void Pipes::RegenerateHeight(float x) {
+  std::random_device ran_d;
+  std::mt19937 mt(ran_d());
+  std::uniform_real_distribution<float> dist_pos(100.0f, HEIGHT - 50 - GapBetweenPipes);
+  std::uniform_real_distribution<float> dist_color(0, 255);
+
+  Color RanColor;
+  RanColor = Color(dist_color(mt), dist_color(mt), dist_color(mt), 255);
+
   float RanHeight = 0.0f;
-  while (RanHeight < 50) {
-    RanHeight = rand() % static_cast<uint32_t>(HEIGHT - 50 - GapBetweenPipes);
-  }
+  RanHeight = dist_pos(mt);
   Pipe BottomPipe = {
       pipe_txr_down,
-      {WIDTH + pipe_txr_down.width, RanHeight}
+      {x, RanHeight},
+      RanColor
   };
   Pipe TopPipe = {
       pipe_txr_up,
-      {WIDTH + pipe_txr_down.width, RanHeight - GapBetweenPipes - pipe_txr_up.height}
+      {x, RanHeight - GapBetweenPipes - pipe_txr_up.height},
+      RanColor
   };
-  std::cout << TopPipe.pos.y << std::endl;
+  std::cout << TopPipe.pos.x << std::endl;
   DuoPipe = {
     BottomPipe,
     TopPipe

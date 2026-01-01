@@ -18,6 +18,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(raylib)
 
+add_subdirectory(thirdparty/json)
+
 add_executable(${PROJECT_NAME}
     src/main.cpp
     src/game.cpp
@@ -29,4 +31,4 @@ add_executable(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
-target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
+target_link_libraries(${PROJECT_NAME} PRIVATE raylib nlohmann_json::nlohmann_json)
